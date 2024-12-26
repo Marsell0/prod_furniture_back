@@ -7,10 +7,15 @@ class ClientSerializer(serializers.ModelSerializer):
         model = models.Client
         fields = "__all__"
 
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Employee
+        fields = "__all__"
+
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Order
-        fields = ('id',)
+        fields = ('id', 'order_date', 'status', 'description', 'expected_completion_date')
 
 
 class ProjectSerializer(serializers.ModelSerializer):

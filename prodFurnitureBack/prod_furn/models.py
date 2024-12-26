@@ -8,6 +8,15 @@ class Client(models.Model):
     registration_date = models.DateField(default=datetime.date.today().isoformat())
 
 
+class Employee(models.Model):
+    name = models.CharField(max_length=60)
+    login = models.CharField(max_length=30)
+    password = models.CharField('password', max_length=30)
+    is_admin = models.BooleanField('is_admin', default=False)
+    registration_date = models.DateField(default=datetime.date.today().isoformat())
+
+
+
 class Order(models.Model):
     client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
     order_date = models.DateField(default=datetime.date.today().isoformat())
@@ -36,3 +45,14 @@ class ProjectMaterial(models.Model):
     project_id = models.ManyToManyField(Project)
     material_id = models.ManyToManyField(Material)
     quantity_used = models.IntegerField()
+
+
+class Showcase(models.Model):
+    name = models.CharField(max_length=50)
+    photo = models.CharField(max_length=50)
+    type = models.CharField(max_length=20)
+    order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
+
+
+class ShowcaseType(models.Model):
+    name = models.CharField(max_length=20)

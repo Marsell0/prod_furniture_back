@@ -26,6 +26,10 @@ class MaterialAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Material, MaterialAdmin)
 
+class EmployeeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'login', 'is_admin')
+
+admin.site.register(models.Employee, EmployeeAdmin)
 
 class ProjectMaterialAdmin(admin.ModelAdmin):
     pass
