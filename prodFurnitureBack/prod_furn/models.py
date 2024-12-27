@@ -29,8 +29,8 @@ class Project(models.Model):
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
     specification = models.CharField(max_length=60)
-    predicted_cost = models.FloatField()
-    completion_deadline = models.DateField()
+    predicted_cost = models.FloatField(null=True)
+    completion_deadline = models.DateField(null=True)
     status =  models.CharField(max_length=15, default='В обработке', blank=True)    
 
 
@@ -42,9 +42,12 @@ class Material(models.Model):
     
 
 class ProjectMaterial(models.Model):
-    project_id = models.ManyToManyField(Project)
-    material_id = models.ManyToManyField(Material)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, related_name="project_materials")
+    material = models.ForeignKey(Material, on_delete=models.CASCADE, null=True, related_name="material_projects")
     quantity_used = models.IntegerField()
+
+    def total_price(self):
+        return self.quantity_used * self.material.unit_price
 
 
 class Showcase(models.Model):
